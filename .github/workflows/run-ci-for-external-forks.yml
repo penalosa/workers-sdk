@@ -14,6 +14,10 @@ jobs:
     if: ${{ inputs.reviewed == true }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       # - name: Check user for team affiliation
       #   uses: tspascoal/get-user-teams-membership@v2
       #   id: teamAffiliation
