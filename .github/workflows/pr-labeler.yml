@@ -8,7 +8,6 @@ jobs:
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
-    if: github.event.pull_request.head.repo.owner.login == 'cloudflare'
     steps:
       - uses: actions/checkout@v4
         with:
