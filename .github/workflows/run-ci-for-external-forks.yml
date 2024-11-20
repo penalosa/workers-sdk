@@ -1,5 +1,3 @@
-# This workflow cleans up any leftover projects created by e2e runs.
-
 name: Run CI on behalf of External Forks
 on:
   workflow_dispatch:
@@ -23,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
           username: ${{ github.actor }}
           team: wrangler
-      - name: Stop workflow if user is no member
+      - name: Stop workflow if user is not a team member
         if: ${{ steps.teamAffiliation.outputs.isTeamMember == false }}
         run: |
           echo "You have must be on the "wrangler" team to trigger this job."
@@ -33,7 +31,8 @@ jobs:
         run: gh pr checkout ${{ inputs.pr-number }}
 
       - name: "Create Draft PR"
-        run: git checkout -b run-ci-on-hehalf-of-${{ inputs.pr-number }}
+        run: |
+          git checkout -b run-ci-on-behalf-of-${{ inputs.pr-number }}
           gh pr create --draft --label "e2e" --title "Run CI on behalf of \#${{ inputs.pr-number }}" --body "This PR is created to run CI on behalf of \#${{ inputs.pr-number }}. It can be closed after the CI run is complete."
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
