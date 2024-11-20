@@ -14,18 +14,18 @@ jobs:
     if: ${{ inputs.reviewed == true }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check user for team affiliation
-        uses: tspascoal/get-user-teams-membership@v2
-        id: teamAffiliation
-        with:
-          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-          username: ${{ github.actor }}
-          team: wrangler
-      - name: Stop workflow if user is not a team member
-        if: ${{ steps.teamAffiliation.outputs.isTeamMember == false }}
-        run: |
-          echo "You have must be on the "wrangler" team to trigger this job."
-          exit 1
+      # - name: Check user for team affiliation
+      #   uses: tspascoal/get-user-teams-membership@v2
+      #   id: teamAffiliation
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      #     username: ${{ github.actor }}
+      #     team: wrangler
+      # - name: Stop workflow if user is not a team member
+      #   if: ${{ steps.teamAffiliation.outputs.isTeamMember == false }}
+      #   run: |
+      #     echo "You have must be on the "wrangler" team to trigger this job."
+      #     exit 1
 
       - name: "Checkout PR"
         run: gh pr checkout ${{ inputs.pr-number }}
