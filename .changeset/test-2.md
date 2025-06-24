@@ -1,0 +1,5 @@
+---
+"miniflare": patch
+---
+
+test mf
